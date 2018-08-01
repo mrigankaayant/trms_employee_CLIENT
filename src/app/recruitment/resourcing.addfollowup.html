@@ -1,0 +1,135 @@
+<span *ngIf="showloader" class="loader">
+    <img src="../app/asset/image/loading.gif"  style="padding-top:20%;" width="90">
+</span>
+
+<menu *ngIf="!showloader"></menu>
+<div class="ui-g" *ngIf="!showloader">
+    <div class="ui-g-12 ui-md-12">
+        
+
+        <div class="ui-g-12" >
+            
+            <p-panel header="Follow Update">
+              <div class="ui-grid-row" >
+                <div class ="ui-g-6">
+                    
+                <h5 style="color:#f47920;font-weight: bold">CANDIDATE INFORMATION :</h5>
+      <table class="tableStyle">
+
+             <tbody class="tbodyStyle">
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">NAME</td>
+                      <td colspan="3" class ="tdValueStyle" style="border-top-color:#e5ebf0">{{candidate.candidateName}}</td>
+                 </tr>
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">PHONE</td>
+                      <td colspan="3" class ="tdValueStyle"><span *ngFor="let ph of candidate.phones">{{ph.type}} : {{ph.number}} <span style="color:#f47920;font-weight: bold">|</span> </span></td>
+                 </tr>
+
+                  <tr class="trStyle">
+                      <td class="tdLabelStyle">EMAIL</td>
+                      <td colspan="3" class ="tdValueStyle">WORK : {{candidate.socialMedia.email}} <span style="color:#f47920;font-weight: bold">| </span>ALT : {{candidate.socialMedia.alternateEmail}}</td>
+                 </tr>
+
+                  <tr class="trStyle">
+                      <td class="tdLabelStyle">SKILL</td>
+                      <td colspan="3" class ="tdValueStyle"><span *ngFor="let canCourse of candidate.candidateCourses">{{canCourse.course}} <span style="color:#f47920;font-weight: bold">|</span> </span></td>
+                 </tr>
+
+                 <tr class="trStyle">
+                     <td class="tdLabelStyle">COURSE FEE</td>
+                     <td class ="tdValueStyle">{{candidate.courseFee}}</td>
+                     <td class="tdLabelStyle">ENROLLMENT STATUS</td>
+                     <td class="tdLabelStyle">{{candidate.enrollmentStstus}}</td>
+                 </tr>
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">PAY TYPE</td>
+                       <td class ="tdValueStyle">{{candidate.payType}}</td>
+                      <td class="tdLabelStyle">PAY RATE</td>
+                      <td  class ="tdValueStyle">{{candidate.payRate}}</td>
+                 </tr>
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">GRADUATION DATE</td>
+                      <td class ="tdValueStyle">{{candidate.graduationDate | date}}</td>
+                       <td class="tdLabelStyle">RECRUITMENT SOURCE</td>
+                      <td class ="tdValueStyle">{{candidate.recruitmentSource}}</td>
+                 </tr>
+
+                  <tr class="trStyle">
+                      <td class="tdLabelStyle">CURRENT LOCATION</td>
+                      <td colspan="3" class ="tdValueStyle">{{candidate.currentLocation}}</td>
+                 </tr>
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">PREFERRED LOCATION</td>
+                      <td colspan="3" class ="tdValueStyle"><span *ngFor="let prefLocation of candidate.preferredLocations">{{prefLocation.location}} <span style="color:#f47920;font-weight: bold">|</span> </span></td>
+                 </tr>
+
+                 
+             </tbody>    
+      </table>
+
+                </div>
+
+                
+
+           <div class ="ui-g-6">
+               <h5 style="color:#f47920;font-weight: bold">UPDATE FOLLOWUP :</h5>
+
+                <form  [formGroup]="addFollowUpForm">
+              
+                     <div style="background-color:#f3f6f9;margin-top:-1%;">
+                          <div class="ui-grid-row" style="padding-top:3%;margin-left:1%">
+                                <div class="ui-g-12" style="position: relative;">
+
+                                    <span *ngIf="!addFollowUpForm.controls['nextFollowUpDate'].valid&&addFollowUpForm.controls['nextFollowUpDate'].dirty">
+                                        <span class="tooltiptext1">Follow Up Date Required</span>
+                                    </span>
+
+                                    <p-calendar id="grdDate" placeholder="Enter Follow Up Date" [inputStyle]="{'height':'44px','width':'170.2%'}" [monthNavigator]="true" [yearNavigator]="true" yearRange="2000:2030"  formControlName="nextFollowUpDate"></p-calendar>
+                                </div>   
+                            
+                         </div>
+                      </div>   
+
+
+                     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="padding-top:2%;background-color:#f3f6f9" [hidden]=isFollowUp>    
+                        <div class="ui-grid-row" style="padding-left:.30%">
+                            <div class="ui-grid-col-12">
+                                Follow Up Remarks:
+                            </div>
+                            
+                        </div>
+
+                         <div class="ui-grid-row">
+                            
+                            <div class="ui-grid-col-12" style="position: relative;">
+
+                                <span *ngIf="!addFollowUpForm.controls['followupRemarks'].valid&&addFollowUpForm.controls['followupRemarks'].dirty">
+                                        <span class="tooltiptext1" >Follow Up Required</span>
+                                </span>
+
+                                <input pInputText  type="text" hidden="true" formControlName="candidateId" />
+                                <textarea pInputTextarea formControlName="followupRemarks" [rows]="5" [cols]="30" autoResize="autoResize" ></textarea>
+                            </div>
+                        </div> 
+                       
+                    <div class="ui-grid-row" style="margin-left:40%;margin-top:2%">
+                        <div class="ui-grid-col-6" >
+                            <button pButton type="button" [disabled]="!addFollowUpForm.valid" icon="fa-pencil-square-o" iconPos="right" (click)="saveFollowUp()" label="Update"></button>
+                        </div>
+                    </div>
+                    </div>
+
+
+                </form>
+           </div> 
+              </div>
+            </p-panel>
+        </div>
+    </div>
+</div>

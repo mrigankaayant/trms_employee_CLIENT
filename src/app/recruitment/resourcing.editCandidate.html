@@ -1,0 +1,412 @@
+<span *ngIf="showloader" class="loader">
+    <img src="../app/asset/image/loading.gif"  style="padding-top:20%;" width="90">
+</span>
+
+<menu *ngIf="!showloader"></menu>
+<div class="ui-g" *ngIf="!showloader">
+    <div class="ui-grid-row">
+        <div class="ui-g-8">
+             <p-dataTable [value]="candidateList" paginatorPosition="both" sortField="createdDate" sortOrder="-1" [rowsPerPageOptions]="[5,10,20,50,100]" scrollable="true"  scrollHeight="70vh" scrollWidth="100%" responsive="true" [rows]="11" [paginator]="true" selectionMode="single" 
+              [(selection)]="selectedCandidate" (onRowSelect)="onRowSelect($even)" dataKey="id"  #dt >
+            
+          
+                <p-header>
+                    <div style="display:inline-block"><b>Candidate List</b></div>
+                </p-header>
+                 
+                <p-column field="candidateName" [sortable]="true" [filter]="true" header="Name"></p-column>
+                <p-column field="socialMedia.email" [filter]="true" [sortable]="true" header="Email"></p-column>
+                 
+                
+                 <p-column [filter]="true" [style]="{'width':'10%'}" [sortable]="true">
+                    <ng-template pTemplate="header">Mobile</ng-template>
+                    <ng-template let-col let-childsq="rowData.phones" pTemplate="body" >
+                        
+                        <tr *ngFor="let wm of childsq">
+                        <td *ngIf="wm.type === 'Work Mobile' ">{{wm.number}}</td>
+                        
+                        </tr>
+                    </ng-template>
+                </p-column>           
+                                    
+                <p-column field="enrollmentStstus" [style]="{'width':'12%'}" [filter]="true" [sortable]="true" header="Status"></p-column>
+               
+                <p-column [filter]="true" [style]="{'width':'12%'}" [sortable]="true" id="visa">
+                    <ng-template pTemplate="header">Visa</ng-template>
+                    <ng-template let-col let-childs="rowData.immigrations" pTemplate="body" >
+                        <tr *ngFor="let im of childs">
+                        <td>{{im.immigrationType}}</td>
+                        </tr>
+                    </ng-template>
+                </p-column>
+
+                 <p-column field="nextFollowupDate" [style]="{'width':'10%'}" [filter]="true" [sortable]="true" header="NextFollowup" >
+
+                    <ng-template let-row="rowData" pTemplate="body">
+                        {{row.nextFollowupDate | date}}
+                    </ng-template> 
+
+                </p-column>
+
+                <p-column field="createdBy.name" [filter]="true" [sortable]="true" header="Recruiter"></p-column>
+                
+            </p-dataTable>
+        </div>
+        
+       <div class="ui-g-4" style="margin-left:-0.5%">
+            <p-panel header="Update Candidate" > 
+                <p-tabView>
+                   <p-tabPanel header="Follow Up">
+                        
+                            <p-messages [value]="followupMsgs" ></p-messages>
+                       
+
+                       <form  [formGroup]="addFollowUpForm">
+                            <div style="background-color:#fafafa;margin-top:-1%;">
+                            <div class="ui-grid-row" style="padding-top:3%;margin-left:1%">
+                            <span class="ui-float-label">
+
+                                    <span *ngIf="!addFollowUpForm.controls['nextFollowUpDate'].valid&&addFollowUpForm.controls['nextFollowUpDate'].dirty">
+                                        <span style="position: absolute;color: #f47920;font-size: 12px;padding: 0 4px;top: -15px;line-height: 16px;
+                                        background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">Next Follow Up Date Required</span>
+                                    </span>
+
+                                    <p-calendar id="grdDate" [inputStyle]="{'height':'44px','width':'170.2%'}"  formControlName="nextFollowUpDate"></p-calendar>
+                                    <label for="grdDate">Enter Next Followup Date</label>
+                            </span>
+                         </div>
+
+                     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="padding-top:2%">    
+                        <div class="ui-grid-row" style="padding-left:.30%">
+                            <div class="ui-grid-col-12">
+                                Follow Up Remarks:
+                            </div>
+                            
+                        </div>
+
+                         <div class="ui-grid-row">
+                            
+                            <span *ngIf="!addFollowUpForm.controls['followupRemarks'].valid&&addFollowUpForm.controls['followupRemarks'].dirty">
+                                        <span style="position: absolute;color: #f47920;margin-left:10%;font-size: 12px;padding: 0 4px;top: 270px;line-height: 16px;
+                                        background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">Follow Up Required</span>
+                                    </span>
+
+                            <div class="ui-grid-col-12">
+                                <input pInputText  type="text" hidden="true" formControlName="candidateId" />
+                                <textarea pInputTextarea formControlName="followupRemarks" [rows]="5" [cols]="30" autoResize="autoResize" ></textarea>
+                            </div>
+                        </div> 
+                       
+                    <div class="ui-grid-row" style="margin-left:40%;margin-top:2%">
+                        <div class="ui-grid-col-6" >
+                            <button pButton type="button" [disabled]="!addFollowUpForm.valid" icon="fa-pencil-square-o" iconPos="right" (click)="saveFollowUp()" label="Update"></button>
+                        </div>
+                    </div>
+                    </div>
+                  </div> 
+                </form>
+                
+               
+                <div style="margin-top:1%;">
+               <p-dataTable [value]="followupList" sortField="followupDate" sortOrder="-1" [rows]="4" paginatorPosition="both" responsive="true" filterDelay="2000" [paginator]="true">
+                  
+                   <p-column field="followupDate"  header="FollowUp Date" >
+
+                        <ng-template let-row="rowData" pTemplate="body">
+                            {{row.followupDate | date}}
+                        </ng-template> 
+
+                    </p-column>
+
+                    <p-column field="scheduledDate"  header="Scheduled Date" >
+
+                        <ng-template let-row="rowData" pTemplate="body">
+                            {{row.scheduledDate | date}}
+                        </ng-template> 
+
+                    </p-column>
+                
+                  <p-column field="candidateRemarks" header="Status"></p-column>
+                  <p-column field="followupRemarks" header="Remarks"></p-column>
+              </p-dataTable>  
+              </div>
+
+                   </p-tabPanel>
+                   <p-tabPanel header="Personal">
+                    <p-messages [value]="personalMsgs"></p-messages>
+                    <form id="resourcing" [formGroup]="addCandidateForm">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" >
+                        <div class="ui-grid-row">
+                                <div class="ui-grid-col-6">
+
+                                    <span class="ui-float-label" >
+
+                                    <span *ngIf="!addCandidateForm.controls['candidateName'].valid&&addCandidateForm.controls['candidateName'].dirty">
+                                        <span style="position: absolute;color: #f47920;font-size: 12px;padding: 0 4px;top: -15px;line-height: 16px;
+                                        background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">First Name Required</span>
+                                    </span>
+
+                                        <input id="candidateName" pInputText  type="text" size="36%" style="height:44px;" formControlName="candidateName"/>
+                                        <label for="candidateName">Enter Name</label>
+                                    </span>
+                                </div>
+                            
+                            <div class="ui-grid-col-6">
+                                    
+                                    <p-dropdown [options]="payTypeList" formControlName="payType" [autoWidth]="false" ></p-dropdown>
+                            </div>
+                        </div>
+
+                   <div class="ui-grid-row" style="margin-top:2%">
+                         <div class="ui-grid-col-6">
+
+                                <span class="ui-float-label" >
+
+                                <span *ngIf="addCandidateForm.get('email').hasError('pattern')&& addCandidateForm.get('email').dirty">
+                                   <span style="position: absolute;color: #f47920;font-size: 12px;padding: 0 4px;top: -15px;line-height: 16px;
+                                   background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">Enter Valid Email</span>
+                                </span>
+
+                                <span *ngIf="addCandidateForm.get('email').hasError('required')&& addCandidateForm.get('email').dirty">
+                                   <span style="position: absolute;color: #f47920;font-size: 12px;padding: 0 4px;top: -15px;line-height: 16px;
+                                   background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">Email Required</span>
+                                </span>
+
+                                    <input id="email" #email (change)="checkEmail(email.value)" required pInputText type="text" size="36" style="height:44px;" formControlName="email"/>
+                                    <label for="email">Enter Email</label>
+                                </span>
+                          </div>
+
+                        <div class="ui-grid-col-6">
+
+                                <span class="ui-float-label" >
+                                    <input id="pay-rate" pInputText type="text" size="37" style="height:44px;" formControlName="payRate"/>
+                                    <label for="pay-rate">Enter Pay Rate</label>
+                                </span>
+                          </div>
+                   </div>
+                    
+                <div class="ui-grid-row" style="margin-top:2%">
+                       <div class="ui-grid-col-6">
+
+                                <span class="ui-float-label">
+
+                                    <span *ngIf="addCandidateForm.get('alternateEmail').hasError('pattern')&& addCandidateForm.get('alternateEmail').dirty">
+                                   <span style="position: absolute;color: #f47920;font-size: 12px;padding: 0 4px;top: -15px;line-height: 16px;
+                                   background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">Enter Valid Email</span>
+                                </span>
+
+                                    <input id="altEmail"  #AltEmail (change)="checkAlternateEmail(AltEmail.value)" pInputText type="text" size="36" style="height:44px;" formControlName="alternateEmail"/>
+                                    <label for="altEmail">Enter Alternate Email</label>
+                                </span>
+                        </div>
+
+
+                        <div class="ui-grid-col-6">
+                                 
+                                <span class="ui-float-label">
+                                    <p-calendar id="grdDate" [inputStyle]="{'height':'44px','width':'100.2%'}"  formControlName="graduationDate"></p-calendar>
+                                    <label for="grdDate">Enter Graduation Date</label>
+                                </span>
+                        </div>
+                  </div>
+
+                  <div class="ui-grid-row" style="margin-top:2%">
+                        <div class="ui-grid-col-6">
+                             
+                                <span class="ui-float-label">
+
+                                    <span *ngIf="addCandidateForm.get('workMobile').hasError('pattern')&& addCandidateForm.get('workMobile').dirty">
+                                   <span style="position: absolute;color: #f47920;font-size: 12px;padding: 0 4px;top: -15px;line-height: 16px;
+                                   background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">Only 10 Digits</span>
+                                </span>
+
+                                <span *ngIf="addCandidateForm.get('workMobile').hasError('required')&& addCandidateForm.get('workMobile').dirty">
+                                   <span style="position: absolute;color: #f47920;font-size: 12px;padding: 0 4px;top: -15px;line-height: 16px;
+                                   background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">Work Mobile is Required</span>
+                                </span>
+
+                                    <input id="wrkMobile" #wrkMobile  (change)="checkMobile(wrkMobile.value)" pInputText type="text" size="36" style="height:44px;" formControlName="workMobile"/>
+                                    <label for="wrkMobile">Enter Work Mobile</label>
+                                </span>
+                        </div>
+
+                 
+
+                        <div class="ui-grid-col-6">
+                            <p-dropdown id="products"  [options]="canSkills" formControlName="skill"   [autoWidth]="false"  ></p-dropdown>  
+                        </div>
+
+                     </div>
+                     <div class="ui-grid-row" style="margin-top:2%">
+
+
+                         <div class="ui-grid-col-6">
+                                    
+                                <span class="ui-float-label">
+
+                                    <span *ngIf="addCandidateForm.get('homeMobile').hasError('pattern')&& addCandidateForm.get('homeMobile').dirty">
+                                        <span style="position: absolute;color: #f47920;font-size: 12px;padding: 0 4px;top: -15px;line-height: 16px;
+                                            background: #fff;border: 1px solid #f47920;border-radius: 3px;z-index: 9;">Only 10 Digits</span>
+                                    </span>
+
+                                    <input id="homeMobile" #homeMobile (change)="checkHomeMobile(homeMobile.value)" pInputText type="text" size="36" style="height:44px;" formControlName="homeMobile"/>
+                                    <label for="homeMobile">Enter Home Mobile</label>
+                                </span>
+                        </div>
+
+                         <div class="ui-grid-col-6">
+                                  <p-dropdown [options]="recStatusList" [readonly]="showEnrollment" formControlName="enrollmentStstus" [autoWidth]="false" ></p-dropdown>
+                        </div>
+
+                     </div>
+
+
+                <div class="ui-grid-row" style="margin-top:2%;">
+
+                     <div class="ui-grid-col-6">  
+                                <p-dropdown [options]="visaList" formControlName="visa" [autoWidth]="false" ></p-dropdown>
+                        </div>
+
+
+                        <div class="ui-grid-col-6" >  
+                                <span class="ui-float-label">
+                                    <p-calendar id="visaStartDate" [inputStyle]="{'height':'44px','width':'100.3%'}"  formControlName="visaStartDate"></p-calendar>
+                                    <label for="visaStartDate">Enter Visa Date</label>
+                                </span>
+                        </div>
+                        
+                </div>
+
+                <div class="ui-grid-row" style="margin-top:2%;">
+                     <div class="ui-grid-col-6">
+                                <p-dropdown [options]="recSourceList" formControlName="recruitmentSource" [autoWidth]="false" ></p-dropdown>
+                    </div>
+                        <div class="ui-grid-col-6">
+                                
+                                <span class="ui-float-label" >
+                                    <input id="fee" pInputText [readonly]="showEnrollment" type="text" size="36" style="height:44px;" formControlName="courseFee"/>
+                                    <label for="fee">Enter Fee</label>
+                                </span>
+                        </div>
+                </div>
+                
+
+                <div class="ui-grid-row" style="margin-top:2%">
+
+                    <div class="ui-grid-col-6">
+                                <p-dropdown [options]="recruitmentServiceList" formControlName="serviceName" [autoWidth]="false" ></p-dropdown>
+                                <span *ngIf="!addCandidateForm.controls['serviceName'].valid&&addCandidateForm.controls['serviceName'].dirty">
+                                        <span style="color: #f47920">Recruitment Service Required</span>
+                                </span>
+                        </div>
+                       
+
+                         <div class="ui-grid-col-6">
+                         <span class="ui-float-label" >
+                                    <input id="currLocation" pInputText type="text" size="37" style="height:44px;" formControlName="currentLocation"/>
+                                    <label for="currLocation">Enter Current Location</label>
+                        </span>
+                        </div>
+                </div>
+
+               <div class="ui-grid-row" style="margin-top:2%" formArrayName="preferredLocations">
+                        
+                          <div class="ui-grid-col-12">
+                        <div *ngFor="let location of addCandidateForm.controls.preferredLocations.controls; let i=index">
+                              
+                              <div>
+                                <a *ngIf="addCandidateForm.controls.preferredLocations.controls.length > 1" style="cursor: default;color:red;" (click)="removePreferredLocations(i)">Close
+                                </a>
+                               </div>
+
+                               <div [formGroupName]="i">
+
+                                   <div class="ui-grid-col-12">
+                                    <span class="ui-float-label" >
+                                    <input id="loc" pInputText type="text"  style="height:44px;" formControlName="location"/>
+                                    <label for="loc"> Preferred Location</label>
+                                    </span>
+                                    </div> 
+                               </div>   
+                         </div> 
+                         <div class="margin-20">
+                           <a (click)="addPreferredLocations()" style="cursor: default;color:blue;">
+                              Add another Preferred Location +
+                          </a>
+                        </div>  
+                      </div>  
+                     </div>   
+              </div>
+                    <div class="ui-g" >
+                             <span style="padding-left:46%;padding-top:1%">
+                                 <button pButton type="button" [disabled]="!addCandidateForm.valid" icon="fa-pencil-square-o" iconPos="right" (click)="updateCandidate()" label="Update"></button>
+                             </span>
+                        </div>
+                </form>
+                   </p-tabPanel>
+                 </p-tabView>
+            </p-panel>
+
+        </div>
+    </div>
+
+    <p-dialog  [style]="{'background-color':'black'}"  [(visible)]="showDialog" modal="modal" width="600" [responsive]="true">
+        
+                <p-header>
+                    <span style="color:red"> This Candidate Allready Registered </span>
+                </p-header>
+      
+      <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="padding-top:1%">
+           
+           <div class="ui-grid-row" style="padding-left:30%;padding-top:1%">
+                <span style="font-weight: bold;color:white;font-size:20px">Name:</span> <span style="color:white;font-size:20px">{{candidate.candidateName}}</span>
+           </div>
+
+           <div class="ui-grid-row" style="padding-top:2%;padding-left:30%">
+                <span style="font-weight: bold;color:white;font-size:20px">Email:</span> <span style="color:white;font-size:20px"> {{candidate.socialMedia.email}} </span>
+           </div>
+
+           <div class="ui-grid-row" style="padding-top:2%;padding-left:30%">
+                <span style="font-weight: bold;color:white;font-size:20px">Alt.Email:</span> <span style="color:white;font-size:20px">  <span *ngIf="candidate.socialMedia.alternateEmail == '' || candidate.socialMedia.alternateEmail === null " >N/A</span>
+                            {{candidate.socialMedia.alternateEmail}}   </span>
+           </div>
+
+            <div class="ui-grid-row" style="padding-top:2%;padding-left:30%">
+
+                  <span style="font-weight: bold;color:white;font-size:20px">Work Mobile:</span>
+                        <span *ngFor="let wm of candidate.phones" >
+                            
+                            <span *ngIf="wm.type === 'Work Mobile' " > <span style="color:white;font-size:20px"> {{wm.number}} </span>
+                                <span *ngIf="wm.number == '' || wm.number === null " > <span style="color:white;font-size:20px">N/A </span></span>
+                            </span>
+                                    
+                        </span> 
+            </div>
+
+
+             <div class="ui-grid-row" style="padding-top:2%;padding-left:30%">
+                    <span style="font-weight: bold;color:white;font-size:20px">Home Mobile :</span> 
+                                
+                        <span *ngFor="let wm of candidate.phones" >
+                            <span *ngIf="wm.type === 'Home Mobile' " >
+                                    <span *ngIf="wm.number == '' || wm.number === null " > <span style="color:white;font-size:20px">N/A </span></span>
+                                       <span style="color:white;font-size:20px"> {{wm.number}} </span>
+                                    </span>
+                            </span>
+
+             </div>
+
+            <div class="ui-grid-row" style="padding-top:2%;padding-left:30%">
+                <span style="font-weight: bold;color:white;font-size:20px">Recruiter Name:</span> <span style="color:white;font-size:20px"> {{candidate.createdBy.name}} </span>
+           </div>
+
+            <div class="ui-grid-row" style="padding-top:2%;padding-left:30%;padding-bottom:10%">
+                <span style="font-weight: bold;color:white;font-size:20px">Entry Date:</span> <span style="color:white;font-size:20px"> {{candidate.createdDate|date}} </span>
+           </div>
+
+      </div>
+
+</p-dialog>
+
+</div>

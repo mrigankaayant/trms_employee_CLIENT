@@ -1,0 +1,169 @@
+<menu></menu>
+      
+   <div  style="background-color:#F0F0F0;">
+     <div style="text-align: center;padding-top:1%">
+        <img src= "/resources/success.png" height="90" width="90"/>
+     </div>
+     <div style="text-align: center;">
+          <span style="color:green;font-size:36Px;font-weight: bold">SUCCESS!</span>
+     </div>
+     <div style="text-align: center;">
+          <span style="color:black;font-size:20Px;font-weight: bold">Your Submission has been saved!</span>
+     </div>
+
+    <p-fieldset legend="Personal Information" [style]="{'background-color':'#F0F0F0','margin-top':'2%'}" >
+                
+                   
+                    <div class="ui-g">
+                           <div class="ui-g-3">
+                                      First Name :{{employee.firstName}}
+                          </div>
+
+                        <div class="ui-g-3">
+                                Last Name :{{employee.lastName}}   
+                          </div>
+
+                        <div class="ui-g-3">
+                               Gender :{{employee.gender}}
+                          </div>
+
+                        <div class="ui-g-3">
+                                   Date  of Birth : {{employee.dob|date}}
+                          </div>
+                        
+                    </div>
+
+                     <div class="ui-g">
+                        <div class="ui-g-3">
+                                Father Name : {{employee.fathersName}}
+                          </div>
+
+                          <div class="ui-g-3">
+                                    Mother Name :{{employee.mothersName}}
+                          </div>
+
+                            <div class="ui-g-3">
+                                    Qualification :{{employee.qualification}}
+                          </div>
+
+                          <div class="ui-g-3">
+                                    Department :{{employee.deperment}}
+                          </div>
+
+                    </div>
+
+                     <div class="ui-g">
+                        <div class="ui-g-3">
+                                Designation :{{employee.designation}} 
+                          </div>
+
+                          <div class="ui-g-3">
+                                    Payroll Group :{{employee.payrollGroupMst.groupName}}    
+                          </div>
+
+                           <div class="ui-g-3">
+                                    Employee Code :{{employee.employeeCode}}
+                          </div>
+
+                         <div class="ui-g-3">
+                                    Monthly Salary :{{employee.monthlySalary}}
+                          </div>
+
+                    </div>
+                   
+                
+        </p-fieldset>
+
+
+         <p-fieldset legend="Contact Information" [style]="{'background-color':'#F0F0F0','margin-top':'1%'}" >
+                
+                     <div class="ui-g">
+                         <div class="ui-g-3">
+                                House No :{{employee.houseNo}}
+                          </div>
+
+                         <div class="ui-g-3">
+                                Street :{{employee.street}}
+                          </div>
+
+                           <div class="ui-g-3">
+                               Country : {{employee.countryMst.name}}
+                          </div>
+
+                          <div class="ui-g-3">
+                                State :{{employee.stateMst.stateName}}
+                          </div>
+                    </div>
+
+                     <div class="ui-g">
+                          <div class="ui-g-3">
+                                City :{{employee.cityMstByCityMstId.cityName}}
+                          </div>
+
+                           <div class="ui-g-3">
+                                    Working City :{{employee.cityMstByWorkingCity.cityName}}
+                          </div>
+
+                          <div class="ui-g-3">
+                                    Zipcode :{{employee.zipCode}}
+                          </div>
+
+                            <div class="ui-g-3">
+                                    Phone No :{{employee.phoneNo}}
+                            </div>
+                    </div>
+
+                     <div class="ui-g">
+                          <div class="ui-g-3">
+                                Mobile No :{{employee.mobileNo}}
+                          </div>
+
+                            <div class="ui-g-3">
+                                    Email :{{employee.email}}
+                            </div>
+                    </div>
+               
+        </p-fieldset>
+
+
+        <p-fieldset legend="Bank Information" [style]="{'background-color':'#F0F0F0','margin-top':'1%'}" >
+                
+                    <div class="ui-g">
+                        <div class="ui-g-3">
+                                Bank Name :{{employee.bankName}}
+                          </div>
+
+                        <div class="ui-g-3">
+                                Account No :{{employee.bankAccountNo}}
+                          </div>
+
+                          <div class="ui-g-3">
+                               Account Type :{{employee.bankAccountType}}
+                          </div>
+
+                          <div class="ui-g-3">
+                                Branch Name :{{employee.bankBranchName}}
+                          </div>
+                    </div>
+
+                    <div class="ui-g">
+                        <div class="ui-g-3">
+                                Branch Address :{{employee.bankBranchAddress}}
+                          </div>
+
+                          <div class="ui-g-3">
+                                    IFSC Code :{{employee.bankIfsCode}}
+                          </div>
+
+                           <div class="ui-g-3">
+                                    MIRC Code :{{employee.bankMicrCode}}
+                          </div>
+
+                          <div class="ui-g-3">
+                                    Pan No :{{employee.panNumber}}
+                          </div>
+                    </div>
+                
+        </p-fieldset>
+       
+   </div>

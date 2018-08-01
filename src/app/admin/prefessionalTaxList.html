@@ -1,0 +1,13 @@
+<menu></menu>
+<p-panel header="Professional Tax List">
+<div class="ui-widget-header" style="padding:4px 10px;border-bottom: 0 none">
+<i class="fa fa-search" style="margin-left:75%"></i>
+<input #gb type="text" pInputText size="30" placeholder="Global Filter">
+</div>
+<p-dataTable [value]="professionalTaxs" [rows]="10" [paginator]="true" [totalRecords]="totalRecords" [globalFilter]="gb" #dt >
+<p-column field="stateOfCountryMst.stateName" [filter]="true" [sortable]="true" header="State"></p-column>
+<p-column field="upperLimitAmount" [filter]="true" [sortable]="true" header="Upper Limit Amount"></p-column>
+<p-column field="lowerLimitAmount" [filter]="true" [sortable]="true" header="Lower Limit Amount"></p-column>
+<p-column field="taxAmount" [filter]="true" [sortable]="true" header="Tax Amount"></p-column>
+</p-dataTable>
+</p-panel> 

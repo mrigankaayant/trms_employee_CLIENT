@@ -1,0 +1,110 @@
+<menu></menu>
+ 
+<p-panel header="Search Candidate" [style]="{'margin-left':'1%','margin-right':'1%'}">
+
+                <p-messages [value]="msgs"></p-messages>
+                <form id="resourcing" [formGroup]="searchCandidateForm">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+                        <div class="ui-grid-row">
+                            <div class="ui-grid-col-4" style="margin-top:10px">
+                                   
+                                   <span class="ui-float-label" >
+                                        <input id="candidateName" pInputText  type="text" size="36%" style="height:44px;" formControlName="searchValue"/>
+                                        <label for="candidateName">Enter Name or Work Mobile or Home Mobile or Email or Alternate Email</label>
+                                    </span>
+
+                            </div>
+
+                            <div class="ui-grid-col-1" style="margin-top:10px" >
+                                <span>
+                                    <button pButton style="margin-top:7%" type="button" icon="fa-search" iconPos="right" (click)="searchCandidate()" label="Search"></button>
+                                </span>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </form>
+</p-panel>
+
+
+<span *ngIf="showDataTablePanel">
+      <div style="margin-left:5%;margin-right:5%;border-style: ridge;margin-top:2%">
+
+        <div *ngFor="let candidate of candidateList;let i=index" style="margin-left:10%;margin-right:10%;margin-top:3%;">
+
+            <h5 style="color:#f47920;font-weight: bold">RESULT {{i+1}} :</h5>
+            <table style="border-collapse: collapse;width: 100%;">
+
+             <tbody style="display: table-row-group;vertical-align: middle;border-color: inherit;">
+
+                 <tr style="background-color: #f3f6f9;">
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">NAME</td>
+                      <td colspan="3" style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">{{candidate.candidateName}}</td>
+                 </tr>
+
+                 <tr style="background-color: #f3f6f9;">
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">PHONE</td>
+                      <td colspan="3" style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;"><span *ngFor="let ph of candidate.phones">{{ph.type}} : {{ph.number}} <span style="color:#f47920;font-weight: bold">|</span> </span></td>
+                 </tr>
+
+                  <tr style="background-color: #f3f6f9;">
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">EMAIL</td>
+                      <td colspan="3" style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">WORK : {{candidate.socialMedia.email}} <span style="color:#f47920;font-weight: bold">| </span>ALT : {{candidate.socialMedia.alternateEmail}}</td>
+                 </tr>
+
+                  <tr style="background-color: #f3f6f9;">
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">SKILL</td>
+                      <td colspan="3" style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;"><span *ngFor="let canCourse of candidate.candidateCourses">{{canCourse.course}} <span style="color:#f47920;font-weight: bold">|</span> </span></td>
+                 </tr>
+
+                 <tr style="background-color: #f3f6f9;">
+                     <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">COURSE FEE</td>
+                     <td style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">{{candidate.courseFee}}</td>
+                     <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">ENROLLMENT STATUS</td>
+                     <td style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">{{candidate.enrollmentStstus}}</td>
+                 </tr>
+
+                 <tr style="background-color: #f3f6f9;">
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">PAY TYPE</td>
+                       <td style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">{{candidate.payType}}</td>
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">PAY RATE</td>
+                      <td style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">{{candidate.payRate}}</td>
+                 </tr>
+
+                 <tr style="background-color: #f3f6f9;">
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">GRADUATION DATE</td>
+                      <td style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">{{candidate.graduationDate | date}}</td>
+                       <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">RECRUITMENT SOURCE</td>
+                      <td style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">{{candidate.recruitmentSource}}</td>
+                 </tr>
+
+                  <tr style="background-color: #f3f6f9;">
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">CURRENT LOCATION</td>
+                      <td colspan="3" style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">{{candidate.currentLocation}}</td>
+                 </tr>
+
+                 <tr style="background-color: #f3f6f9;">
+                      <td style="color: #404c51;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;">PREFERRED LOCATION</td>
+                      <td colspan="3" style="color: black;background-color:white;padding: 4px 10px;border: 1px solid #e5ebf0;font-size: 15px;opacity: .9;"><span *ngFor="let prefLocation of candidate.preferredLocations">{{prefLocation.location}} <span style="color:#f47920;font-weight: bold">|</span> </span></td>
+                 </tr>
+    
+             </tbody>    
+      </table> 
+
+     </div>   
+     </div> 
+
+</span>
+
+<span *ngIf="showNoaData">
+    <div id="a" style="position: relative;margin: 24px 0px 12px 0;padding-bottom:0px;margin-bottom:0px;margin-left:33%;margin-top:10%">
+     <img src="../app/asset/image/not-found.png" style="width: 35%;border-radius: 0%;padding-left:10%;height:30%">
+  </div>
+</span>
+
+<span *ngIf="showText">
+    <div id="a" style="position: relative;margin: 24px 0px 12px 0;padding-bottom:0px;margin-bottom:0px;margin-left:33%;margin-top:10%">
+     <img src="../app/asset/image/searching.jpeg" style="width: 35%;border-radius: 0%;padding-left:10%;height:30%">
+  </div>
+</span>

@@ -1,0 +1,94 @@
+<menu></menu>
+      
+   <div  style="background-color:#F0F0F0;">
+     <div style="text-align: center;padding-top:1%">
+        <img src= "/resources/success.png" height="90" width="90"/>
+     </div>
+     <div style="text-align: center;">
+          <span style="color:green;font-size:36Px;font-weight: bold">SUCCESS!</span>
+     </div>
+     <div style="text-align: center;">
+          <span style="color:black;font-size:20Px;font-weight: bold">Your Submission has been saved!</span>
+     </div>
+
+    <p-fieldset legend="Payroll Group" [style]="{'background-color':'#F0F0F0','margin-top':'2%'}" >
+                
+                   
+                    <div class="ui-g" style="margin-left:36%">
+                           <div class="ui-g-3">
+                                      Group Name :{{payrollGroupMst.groupName}}
+                          </div>
+
+                        <div class="ui-g-3">
+                                Description :{{payrollGroupMst.description}}   
+                          </div>
+                        
+                    </div>    
+        </p-fieldset>
+
+        <p-fieldset legend="Payroll Component" [style]="{'background-color':'#F0F0F0','margin-top':'2%'}" >
+        <div class="ui-g">
+           <div class="ui-g-6" style="border:1px solid">
+               <div style="background-color:teal;margin: -12px -9px -12px;">
+                   <span style="margin-left:50%;color:white">Earning</span>
+               </div>
+                <br>
+               <span *ngFor="let pe of payrollComEarningList" > 
+                    <div class="ui-g-4">
+                        Name :{{pe.payrollCompMst.name}}
+                    </div>
+
+                    <div class="ui-g-5">
+                        Component Type :{{pe.payrollCompMst.category}}
+                    </div>
+
+                    <div class="ui-g-3">
+                    Component Value :{{pe.compValue}}
+                    </div>
+
+               </span>
+
+           </div>
+        
+           <div class="ui-g-6" style="border:1px solid;">
+
+               <div style="background-color:teal;margin: -12px -9px -0px">
+                  <span style="margin-left:50%;color:white">Deduction</span>
+               </div>
+                <br>
+               <span *ngFor="let pe of payrollComDeductionList">
+                    <div class="ui-g-4">
+                            Name :{{pe.payrollCompMst.name}}
+                        </div>
+
+                        <div class="ui-g-5">
+                            Component Type :{{pe.payrollCompMst.category}}
+                        </div>
+
+                        <div class="ui-g-3">
+                        Component Value :{{pe.compValue}}
+                        </div>
+               </span>
+                
+           </div>
+        </div>
+        </p-fieldset>
+
+        <p-fieldset legend="Employee Details" [style]="{'background-color':'#F0F0F0','margin-top':'2%'}" >
+          
+           <p-dataTable [value]="employeeList" >
+                <p-column field="employeeCode"  header="Employee Code"></p-column>
+                <p-column field="firstName"  header="First Name"></p-column>
+                <p-column field="lastName"  header="Last Name"></p-column>
+                <p-column field="email"  header="Email"></p-column>
+                <p-column field="mobileNo" header="Mobile No"></p-column>
+                <p-column field="designation" header="Designation"></p-column>
+                <p-column field="payrollGroupMst.groupName" header="Group Name"></p-column>
+
+            </p-dataTable> 
+       
+        </p-fieldset>
+             <div align="center" style="margin-top: 3%">
+                 <button pButton type="button" (click)="goToPayrollList()"  label="Ok" ></button>
+             </div>
+   </div>

@@ -1,0 +1,323 @@
+<span *ngIf="showloader" class="loader">
+    <img src="../app/asset/image/loading.gif"  style="padding-top:20%;" width="90">
+</span>
+
+<menu  *ngIf="!showloader"></menu>
+
+<div class="ui-g" *ngIf="!showloader">
+    
+         <div class="ui-g-12" >
+            <p-panel header="Add New Candidate">
+
+                <p-messages [value]="msgs"></p-messages>
+                <form id="resourcing" [formGroup]="addCandidateForm">
+                    <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="padding-left:5%;padding-right:5%">
+                        <div class="ui-grid-row" styleClass="row">
+                                <div class="ui-grid-col-2 gridLabel" >
+                                    Candidate Name<span style="color:red">*</span>
+                                </div>
+                                <div class="ui-grid-col-4 gridInputBox" >
+
+                                    <span *ngIf="!addCandidateForm.controls['candidateName'].valid&&addCandidateForm.controls['candidateName'].dirty">
+                                        <span class="tooltiptext">First Name Required</span>
+                                    </span>
+                                    
+                                        <input id="candidateName" placeholder="Enter Candidate name" pInputText   size="36%"  formControlName="candidateName"/>
+                                    
+                                </div>  
+
+                                <div class="ui-grid-col-2 gridLabel" >
+                                    Pay Type
+                                </div>
+
+                                <div class="ui-grid-col-4 gridInputBox" >
+                                        <p-dropdown [options]="payTypeList"  formControlName="payType" [autoWidth]="false" ></p-dropdown>
+                                </div>
+                                
+
+                            </div>
+
+                         <div class="ui-grid-row" styleClass="row"> 
+
+                                <div class="ui-grid-col-2 gridLabel" >
+                                        Email<span style="color:red">*</span>
+                                </div>
+
+                                <div class="ui-grid-col-4 gridInputBox">
+                                             <span *ngIf="addCandidateForm.get('email').hasError('pattern')&& addCandidateForm.get('email').dirty">
+                                               <span  class="tooltiptext"> Enter Valid Email</span>
+                                             </span>
+
+                                             <span *ngIf="addCandidateForm.get('email').hasError('required')&& addCandidateForm.get('email').dirty">
+                                               <span  class="tooltiptext"> Email Required </span>
+                                             </span>
+                                            <input id="email"  #email (blur)="checkEmail(email.value)" placeholder="Enter Email" required pInputText  size="36" formControlName="email"/>
+                                </div>
+
+                                <div class="ui-grid-col-2 gridLabel" >
+                                        Pay Rate
+                                </div>
+
+                                <div class="ui-grid-col-4 gridInputBox">
+                                            <input id="pay-rate" pInputText type="text" size="36" placeholder="Enter Pay Rate" formControlName="payRate"/>
+                                </div>
+
+                         </div>
+
+                         
+
+                   
+                    
+                <div class="ui-grid-row" styleClass="row">
+                       <div class="ui-grid-col-2 gridLabel">
+                            Alternate Email
+                       </div>
+                            
+                        <div class="ui-grid-col-4 gridInputBox" >
+                                <span *ngIf="addCandidateForm.get('alternateEmail').hasError('pattern')&& addCandidateForm.get('alternateEmail').dirty">
+                                        <span class="tooltiptext">Enter Valid Email</span>
+                                </span>
+
+                                <input id="altEmail" placeholder="Enter Alternate Email"  #AltEmail (blur)="checkEmail(AltEmail.value)" pInputText type="text" size="36"  formControlName="alternateEmail"/>
+                        </div> 
+
+                        <div class="ui-grid-col-2 gridLabel" >
+                                Graduation Date
+                        </div>
+
+                        <div class="ui-grid-col-4 gridInputBox">
+                            <p-calendar id="grdDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1800:2030"  placeholder="Enter Graduation Date"   formControlName="graduationDate"></p-calendar> 
+                        </div>
+                </div>
+
+
+                        
+
+                         <div class="ui-grid-row" styleClass="row">
+                             <div class="ui-grid-col-2 gridLabel">
+                                Work Mobile<span style="color:red">*</span>
+                             </div>
+
+                            <div class="ui-grid-col-4 gridInputBox" >
+                                 <span *ngIf="addCandidateForm.get('workMobile').hasError('pattern')&& addCandidateForm.get('workMobile').dirty">
+                                   <span class="tooltiptext">Only 10 Digits</span>
+                                 </span>
+
+                                 <span *ngIf="addCandidateForm.get('workMobile').hasError('required')&& addCandidateForm.get('workMobile').dirty">
+                                   <span class="tooltiptext">Work Mobile is Required</span>
+                                </span>
+
+                                <input id="wrkMobile" #workMobile placeholder="Enter Work Mobile" (blur)="checkMobile(workMobile.value)" pInputText type="text" size="36"  formControlName="workMobile"/>
+                            </div>    
+
+                             <div class="ui-grid-col-2 gridLabel">
+                                Skill
+                            </div> 
+
+                            <div class="ui-grid-col-4 gridInputBox">
+                                 
+                                 <p-multiSelect  [options]="canSkills"  formControlName="skill"   ></p-multiSelect>
+                            </div>  
+
+                             
+                        </div>
+
+                        
+
+                  
+                     <div class="ui-grid-row" styleClass="row">
+
+
+                         <div class="ui-grid-col-2 gridLabel">
+                             Home Mobile
+                         </div>
+
+                        <div class="ui-grid-col-4 gridInputBox"  >
+
+                            <span *ngIf="addCandidateForm.get('homeMobile').hasError('pattern')&& addCandidateForm.get('homeMobile').dirty">
+                                <span class="tooltiptext">Only 10 Digits</span>
+                            </span>
+
+                            <input id="homeMobile"  #hmMobile placeholder="Enter Home Mobile" (blur)="checkMobile(hmMobile.value)" pInputText type="text" size="36"  formControlName="homeMobile"/>
+                        </div>  
+
+                        <div class="ui-grid-col-2 gridLabel" >
+                                Enrollment Status
+                        </div>
+
+                        <div class="ui-grid-col-4 gridInputBox">
+                                  <input id="enrollmentStstus" [readonly]="true" pInputText  formControlName="enrollmentStstus" />
+                        </div>   
+
+                     </div>
+
+
+                         
+
+                          <div class="ui-grid-row" styleClass="row"> 
+                             <div class="ui-grid-col-2 gridLabel"> 
+                                Visa
+                             </div>
+
+                               <div class="ui-grid-col-4 gridInputBox" >
+                                    <p-dropdown [options]="visaList"  formControlName="visa" [autoWidth]="false" ></p-dropdown>
+                              </div>
+
+                              <div class="ui-grid-col-2 gridLabel">  
+                                Visa Start date
+                             </div>
+
+                             <div class="ui-grid-col-4 gridInputBox" >
+                                    <p-calendar id="visaStartDate" [monthNavigator]="true" [yearNavigator]="true" yearRange="1800:2030" placeholder="Enter Visa Start Date"   formControlName="visaStartDate"></p-calendar>
+                             </div> 
+
+                         </div>
+
+                         
+
+                <div class="ui-grid-row" styleClass="row">
+                     <div class="ui-grid-col-2 gridLabel">
+                         Recruitment Source
+                     </div>
+                    
+                    <div class="ui-grid-col-4 gridInputBox" >
+                                <p-dropdown [options]="recSourceList"  formControlName="recruitmentSource" [autoWidth]="false" ></p-dropdown>
+                    </div>
+
+                    <div class="ui-grid-col-2 gridLabel">
+                                Fee
+                    </div>
+
+                    <div class="ui-grid-col-4 gridInputBox" >
+                        <input id="fee" pInputText placeholder="Enter Fee" size="36"  formControlName="courseFee"/>
+                    </div> 
+             </div>
+                        
+
+                        <div class="ui-grid-row" styleClass="row">
+                             <div class="ui-grid-col-2 gridLabel">
+                                Recruitment Service<span style="color:red">*</span>
+                             </div>
+
+                                <div class="ui-grid-col-4 gridInputBox">
+
+                                    <span *ngIf="!addCandidateForm.controls['serviceName'].valid&&addCandidateForm.controls['serviceName'].dirty">
+                                        <span class="tooltiptext">Recruitment Service Required</span>
+                                    </span>
+
+                                    <p-dropdown [options]="recruitmentServiceList"  formControlName="serviceName" [autoWidth]="false" ></p-dropdown>
+                                </div>
+
+                                <div class="ui-grid-col-2 gridLabel">
+                                    Current Location
+                               </div>
+
+                               <div class="ui-grid-col-4 gridInputBox">
+                                        <input id="currLocation" pInputText placeholder="Enter Current Location" type="text" size="37"  formControlName="currentLocation"/>
+                                </div>  
+
+                        </div>
+
+               <div   formArrayName="preferredLocations">
+                        
+                          
+                        <div *ngFor="let location of addCandidateForm.controls.preferredLocations.controls; let i=index">
+                              
+                              <div>
+                                <a *ngIf="addCandidateForm.controls.preferredLocations.controls.length > 1" style="cursor: default;color:red;" (click)="removePreferredLocations(i)">Close
+                                </a>
+                               </div>
+
+                               <div [formGroupName]="i">
+                                    <div class="ui-grid-row"  styleClass="row">
+                                   <div class="ui-grid-col-2 gridLabel">
+                                       Preferred Location
+                                    </div>
+                                        
+                                    <div class="ui-grid-col-4 gridInputBox">
+                                            
+                                        <input id="loc" pInputText type="text" placeholder="Enter Preferred Location" formControlName="location"/>
+                                        
+                                    </div>
+                                    </div>  
+                               </div>   
+                          
+                         </div> 
+                        
+                         <div class="ui-grid-row">
+                              <div class="ui-grid-col-2">
+                              </div>
+                             <div class="ui-grid-col-6">
+                           <a (click)="addPreferredLocations()" style="cursor: default;color:blue;">
+                              Add another Preferred Location +
+                          </a>
+                             </div>
+                        </div>  
+                       
+                      
+                     </div>
+                    
+              </div> 
+
+                    <div class="ui-g" style="margin-top:1%">
+                             <span style="padding-left:46%;padding-top:3%">
+                                 <button pButton type="button" [disabled]="!addCandidateForm.valid" icon="fa-floppy-o" iconPos="right" (click)="saveCandidate()" label="Save"></button>
+                             </span>
+                        </div>
+
+                </form>
+            </p-panel>
+            
+            <div style="margin-left:1%;margin-bottom:1%;">
+                   <span style="color:red">*</span> Mandatory Fields 
+             </div>
+
+         </div> 
+
+
+    <p-dialog [closable]="false" [(visible)]="showDialog" modal="modal" width="600" [responsive]="true">
+
+
+       <h5 style="color:#f47920;font-weight: bold">THIS CANDIDATE ALREADY REGISTERED</h5>
+         
+         <table class="tableStyle">
+           <thead class="tHeadStyle">
+                <tr class="trStyle">
+                      <td class="tdLabelStyle">NAME</td>
+                      <td colspan="3" class="tdValueStyle" style="border-top-color:#e5ebf0">{{candidate.candidateName}}</td>
+                 </tr>
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">EMAIL</td>
+                      <td colspan="3" class="tdValueStyle">{{candidate.socialMedia.email}}</td>
+                 </tr>
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">ALTERNATE EMAIL</td>
+                      <td colspan="3" class="tdValueStyle">{{candidate.socialMedia.alternateEmail}}</td>
+                 </tr>
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">PHONE</td>
+                      <td colspan="3" class="tdValueStyle"><span *ngFor="let ph of candidate.phones">{{ph.type}} : {{ph.number}} <span style="color:#f47920;font-weight: bold">|</span> </span></td>
+                 </tr>
+
+                  <tr class="trStyle">
+                      <td class="tdLabelStyle">RECRUITER NAME</td>
+                      <td colspan="3" class="tdValueStyle">{{candidate.createdBy.name}}</td>
+                 </tr>
+
+                 <tr class="trStyle">
+                      <td class="tdLabelStyle">ENTRY DATE</td>
+                      <td colspan="3" class="tdValueStyle">{{candidate.createdDate|date}}</td>
+                 </tr>
+           </thead>
+         </table>
+         <br>
+         <span style="padding-left:46%;">
+             <button type="button"  (click)="closeDialog()" pButton icon="fa-external-link-square" label="Ok"></button>
+        </span>
+
+</p-dialog>
+   
+</div>

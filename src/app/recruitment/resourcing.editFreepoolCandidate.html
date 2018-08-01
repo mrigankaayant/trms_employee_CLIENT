@@ -1,0 +1,234 @@
+<menu></menu>
+<div class="ui-g" >
+    <div class="ui-grid-row">
+        <div class="ui-g-8">
+             <p-dataTable [value]="candidateListInFreepool" paginatorPosition="both" sortField="candidateId" sortOrder="-1" scrollable="true"  scrollHeight="70vh" scrollWidth="100%" responsive="true" [rows]="11" [paginator]="true" selectionMode="single" 
+              [(selection)]="selectedCandidateInFreepool" (onRowSelect)="onRowSelect($even)" dataKey="candidateId"  #dt >
+            
+                <p-header>
+                    <div style="display:inline-block"><b> Freepool Candidate List</b></div>
+                </p-header>
+
+               
+                <p-column field="candidateName" [sortable]="true" [filter]="true" header="Name"></p-column>
+                <p-column field="email" [filter]="true" [sortable]="true" header="Email"></p-column>
+                <p-column field="workMobile" [filter]="true" [sortable]="true" header="Work Mobile"></p-column>
+                <p-column field="enrollmentStstus" [filter]="true" [sortable]="true" header="Status"></p-column>
+                <p-column field="recruiterName" [filter]="true" [sortable]="true" header="Recruiter"></p-column>
+                
+            </p-dataTable>
+        </div>
+       
+       <div class="ui-g-4" style="margin-left:-0.5%">
+            <p-panel header="Candidate Details" > 
+                <p-tabView>
+                    <p-tabPanel header="Follow Up">
+                         <p-messages [value]="followupMsgs" ></p-messages>
+                         <form  [formGroup]="followUpFormForFreepool">
+                             <div style="background-color:#fafafa;margin-top:-1%;">
+                            <div class="ui-grid-row" style="padding-top:3%;margin-left:1%">
+                            <span class="ui-float-label">
+                                    <p-calendar id="grdDate" [inputStyle]="{'height':'44px','width':'170.2%'}"  formControlName="nextFollowUpDate"></p-calendar>
+                                    <label for="grdDate">Enter Next Followup Date</label>
+                            </span>
+                         </div>
+
+                     <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="padding-top:2%">    
+                        <div class="ui-grid-row" style="padding-left:.30%">
+                            <div class="ui-grid-col-12">
+                                Follow Up Remarks:
+                            </div>
+                            
+                        </div>
+
+                         <div class="ui-grid-row">
+                            <div class="ui-grid-col-12">
+                                <input pInputText  type="text" hidden="true" formControlName="candidateId" />
+                                <p-editor formControlName="followupRemarks" [style]="{'height':'125px'}"></p-editor>
+                            </div>
+                        </div> 
+                       
+                    <div class="ui-grid-row" style="margin-left:40%;margin-top:2%">
+                        <div class="ui-grid-col-4" >
+                            <button pButton type="button" icon="fa-pencil-square-o" iconPos="right" (click)="saveFollowUp()" label="Get Candidate"></button>
+                        </div>
+                    </div>
+                    </div>
+                  </div>   
+                         </form>  
+
+                 <div style="margin-top:1%;">
+               <p-dataTable [value]="candidateFollowupList" sortField="followupDate" sortOrder="-1" [rows]="4" paginatorPosition="both" responsive="true" filterDelay="2000" [paginator]="true">
+                  
+                   <p-column field="followupDate"  header="FollowUp Date" >
+
+                        <ng-template let-row="rowData" pTemplate="body">
+                            {{row.followupDate | date}}
+                        </ng-template> 
+
+                    </p-column>
+
+                    <p-column field="scheduledDate"  header="Scheduled Date" >
+
+                        <ng-template let-row="rowData" pTemplate="body">
+                            {{row.scheduledDate | date}}
+                        </ng-template> 
+
+                    </p-column>
+                
+                  <p-column field="candidateRemarks" header="Status"></p-column>
+                  <p-column field="followupRemarks" header="Remarks"></p-column>
+              </p-dataTable>  
+              </div>
+            </p-tabPanel>  
+
+
+              <p-tabPanel header="Personal">
+                         
+                         <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="padding-top:1%">
+                        <p-fieldset id="a" legend="Candidate Information" [style]="{'background-color':'#F0F0F0','margin-top':'2%'}">
+                            <div class="ui-grid-row">
+                                
+                                <div class="ui-grid-col-6">
+                                        <span style="font-weight: bold">Name :</span> 
+                                        <span *ngIf="candidate.candidateName == '' || candidate.candidateName === null " >N/A</span>
+                                        {{candidate.candidateName}}
+                                </div>
+                                
+                               <div class="ui-grid-col-6">
+                                 <span style="font-weight: bold">Skill :</span> 
+                                   <span *ngIf="candidate.skill == '' || candidate.skill === null " >N/A</span>
+                                      {{candidate.skill}} 
+                                </div>
+
+                            </div>
+
+                    <div class="ui-grid-row" style="padding-top:2%">
+
+                         <div class="ui-grid-col-6">
+                                    <span style="font-weight: bold">Email :</span> 
+                                    <span *ngIf="candidate.email == '' || candidate.email === null " >N/A</span>
+                                    {{candidate.email}}   
+                                </div>
+
+                        <div class="ui-grid-col-6">
+                            <span style="font-weight: bold">Alt.Email :</span>
+                            <span *ngIf="candidate.alternateEmail == '' || candidate.alternateEmail === null " >N/A</span>
+                            {{candidate.alternateEmail}}  
+                        </div>
+
+                    </div>
+                        
+                    <div class="ui-grid-row" style="padding-top:2%">
+
+                            <div class="ui-grid-col-6">
+                             <span style="font-weight: bold">Work Mobile:</span>
+                                    <span *ngIf="candidate.workMobile == '' || candidate.workMobile === null " >N/A</span>{{candidate.workMobile}}                          
+                            </div>
+
+                             <div class="ui-grid-col-6">
+                             <span style="font-weight: bold">Home Mobile:</span>
+                                    <span *ngIf="candidate.homeMobile == '' || candidate.homeMobile === null " >N/A</span>{{candidate.homeMobile}}                          
+                            </div>
+
+                    </div>
+
+                    <div class="ui-grid-row" style="padding-top:2%">
+                            
+                            <div class="ui-grid-col-6">
+                                <span style="font-weight: bold">Graduation Date :</span>
+                                <span *ngIf="candidate.graduationDate == '' || candidate.graduationDate === null " >N/A</span> 
+                                {{candidate.graduationDate|date}}  
+                            </div>
+
+                            <div class="ui-grid-col-6">
+                                <span style="font-weight: bold">Recruitment Status :</span> 
+                                <span *ngIf="candidate.enrollmentStstus == '' || candidate.enrollmentStstus === null " >N/A</span>
+                                {{candidate.enrollmentStstus}}  
+                            </div>
+                    </div>
+
+
+                        <div class="ui-grid-row" style="padding-top:2%">
+
+                            <div class="ui-grid-col-6">
+                                <span style="font-weight: bold">Visa :</span>
+                                 <span *ngIf="candidate.visa == '' || candidate.visa === null " >N/A</span> 
+                                {{candidate.visa}}   
+                            </div>
+                               
+                            <div class="ui-grid-col-6">
+                                <span style="font-weight: bold">Visa Date :</span> 
+                                <span *ngIf="candidate.visaStartDate == '' || candidate.visaStartDate === null " >N/A</span>
+                                {{candidate.visaStartDate|date}} 
+                            </div>
+
+                        </div>
+
+
+                         <div class="ui-grid-row" style="padding-top:2%">
+
+                             <div class="ui-grid-col-6">
+                                <span style="font-weight: bold">Recruitment Source :</span> 
+                                <span *ngIf="candidate.recruitmentSource == '' || candidate.recruitmentSource === null " >N/A</span>
+                                {{candidate.recruitmentSource}}  
+                            </div>
+                               
+                            <div class="ui-grid-col-6">
+                                <span style="font-weight: bold">Fee :</span> 
+                                <span *ngIf="candidate.courseFee == '' || candidate.courseFee === null " >N/A</span>
+                                {{candidate.courseFee}}
+                            </div>
+
+                        </div>
+
+
+                        <div class="ui-grid-row" style="padding-top:2%">
+
+                            <div class="ui-grid-col-6">
+                                        <span style="font-weight: bold">Pay Type :</span> 
+                                        <span *ngIf="candidate.payType == '' || candidate.payType === null " >N/A</span>
+                                        {{candidate.payType}}
+                            </div>
+                               
+                            <div class="ui-grid-col-6">
+                                        <span style="font-weight: bold">Pay Rate :</span> 
+                                        <span *ngIf="candidate.payRate == '' || candidate.payRate === null " >N/A</span>
+                                        {{candidate.payRate}}
+                            </div>
+
+                        </div>
+
+                        <div class="ui-grid-row" style="padding-top:2%">
+                            <div class="ui-grid-col-12">
+                                        <span style="font-weight: bold">Current Location :</span> 
+                                        <span *ngIf="candidate.currentLocation == '' || candidate.currentLocation === null " >N/A</span>
+                                        {{candidate.currentLocation}}
+                            </div>
+                        </div>
+
+                         <div class="ui-grid-row" style="padding-top:2%">
+                             
+                             <div class="ui-grid-col-12">
+                                <span style="font-weight: bold">Preferred Location :</span> 
+                                <span *ngFor="let prefLocation of candidate.preferredLocations; let isLast=last" >
+                                    <span *ngIf="prefLocation.location == '' || prefLocation.location === null " >N/A</span>
+                                    {{prefLocation.location}}  {{isLast ? '' : ', '}}
+                                   
+                                </span>
+                            </div>
+
+                         </div>
+
+                           </p-fieldset>
+                         </div>
+                         
+                   </p-tabPanel>  
+
+                </p-tabView> 
+            </p-panel>
+
+        </div> 
+        
+    </div>
+</div>

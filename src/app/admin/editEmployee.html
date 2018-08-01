@@ -1,0 +1,579 @@
+<menu></menu>
+
+<form [formGroup]="formEmployee" (ngSubmit)="updateEmployee(formEmployee.value)" >
+    
+    <p-panel header="Employee Details"  [style]="{'margin-bottom':'20px','background-color':'#F0F0F0'}" >
+      
+     <div>
+       <p-messages [value]="msgs"></p-messages>
+     </div>
+  <p-fieldset legend="Personal Information" [style]="{'background-color':'#F0F0F0'}" >
+  <div class="ui-grid ui-fluid ui-grid-responsive ui-grid-pad" >
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                First Name<span style="color:red">*</span> :
+            </div>
+           
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                        <i style="margin-top:15%;" class="fa fa-user"></i>
+                </div>
+                 <div class="ui-grid-col-11">
+                    <input pInputText type="text"   style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px"  placeholder="Enter First Name" formControlName="firstName" />
+                 </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Last Name<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                 <div class="ui-grid-row">
+                <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                       <i style="margin-top:15%;" class="fa fa-user"></i>
+                </div>
+                <div class="ui-grid-col-11">
+                    <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Last Name" formControlName="lastName" />
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Gender<span style="color:red">*</span> :
+            </div> 
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                        <i style="margin-top:15%" class="fa fa fa-mars" aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <p-radioButton name="groupname"  [disabled]="employeeSelector" value="M" label="Male"  formControlName="gender"></p-radioButton>
+                        <p-radioButton name="groupname" [disabled]="employeeSelector" value="F" label="Female" formControlName="gender"></p-radioButton>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Date of Birth<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                        <i style="margin-top:15%" class="fa fa-calendar" aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11"> 
+                    <p-calendar  formControlName="dob"></p-calendar>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+   
+   
+   <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Father Name<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                        <i style="margin-top:15%" class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11"> 
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px"  placeholder="Enter Father Name" formControlName="fathersName"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Mother Name<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                        <i style="margin-top:15%" class="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Mother Name" formControlName="mothersName"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+   
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Qualification :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    </div>
+                     <div class="ui-grid-col-11">
+                        <p-dropdown [options]="dualificationList"  formControlName="qualification" [autoWidth]="false"></p-dropdown>
+                     </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Department<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                 <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-building-o"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <p-dropdown [options]="departmentList"  formControlName="deperment" [autoWidth]="false"></p-dropdown>
+                    </div>
+                 </div>
+            </div>
+        </div>
+   
+    </div>
+   
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Designation<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-id-card"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <p-dropdown [options]="designationList"   formControlName="designation" [autoWidth]="false"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div formGroupName="payrollGroupMst">
+            <div class="ui-grid-col-3">
+                Payroll Group<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                        <i style="margin-top:15%" class="fa fa-users"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <p-dropdown [options]="payrollGroupList"  formControlName="id" [autoWidth]="false"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+           </div>
+        </div>
+   
+    </div>
+  
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Employee Code<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                 <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-id-card-o"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                    <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Employee Code" formControlName="employeeCode"/>
+                    </div>
+                 </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Monthly Salary<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                 <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-money"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                    <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Monthly Salary" formControlName="monthlySalary"/>
+                    </div>
+                 </div>
+            </div>
+        </div>
+   
+    </div>
+    </div>
+    </p-fieldset>
+
+<br>
+
+<p-fieldset legend="Contact Information" [style]="{'background-color':'#F0F0F0'}">
+  <div class="ui-grid ui-fluid ui-grid-responsive ui-grid-pad">
+     
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                House No :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-home"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter House No" formControlName="houseNo" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Street :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-street-view"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Street" formControlName="street" />
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+   
+   
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div formGroupName="countryMst">
+              <div class="ui-grid-col-3">
+                Country<span style="color:red">*</span> :
+              </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-flag"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <p-dropdown [options]="countriesList"  formControlName="id" [autoWidth]="false" (onChange)="onChangeCountryList($event)"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+         </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+        <div formGroupName="stateMst">
+            <div class="ui-grid-col-3">
+                State<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                          <i style="margin-top:15%" class="fa fa-map-o"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <p-dropdown [options]="stateList"  formControlName="id" [autoWidth]="false" (onChange)="onChangeStateList($event)"></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+   
+    </div>
+   
+   
+   <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+         <div formGroupName="cityMstByCityMstId">
+            <div class="ui-grid-col-3">
+                City :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                     <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-map-signs"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <p-dropdown [options]="cityList"  formControlName="id" [autoWidth]="false" ></p-dropdown>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+         <div formGroupName="cityMstByWorkingCity">
+            <div class="ui-grid-col-3">
+               Working City :
+            </div>
+            <div class="ui-grid-col-8">
+                 <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                          <i style="margin-top:15%" class="fa fa-map-pin"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <p-dropdown [options]="cityList"  formControlName="id" [autoWidth]="false" ></p-dropdown>
+                    </div>
+                 </div>
+            </div>
+            </div>
+        </div>
+   
+    </div>
+   
+    <div class="ui-grid-row">
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Zipcode<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-address-book"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Zip Code" formControlName="zipCode"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Phone No :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                    <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                         <i style="margin-top:15%" class="fa fa-phone"  aria-hidden="true"></i>
+                    </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px"  placeholder="Enter Phone No" formControlName="phoneNo"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+   
+    <div class="ui-grid-row">
+       
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Mobile No<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                             <i style="margin-top:15%" class="fa fa-mobile"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Mobile No" formControlName="mobileNo"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Email<span style="color:red">*</span> :
+            </div>
+            <div class="ui-grid-col-8">
+                  <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                            <i style="margin-top:15%" class="fa fa-envelope"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Email" formControlName="email"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+  
+    </div>
+    </p-fieldset>
+
+<br>
+<p-fieldset legend="Bank Information" [style]="{'background-color':'#F0F0F0'}">
+  <div class="ui-grid ui-fluid ui-grid-responsive ui-grid-pad">
+     
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Bank Name :
+            </div>
+            <div class="ui-grid-col-8">
+                 <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                             <i style="margin-top:15%" class="fa fa-university"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Bank Name" formControlName="bankName"/>
+                    </div>
+                 </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Account No :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                             <i style="margin-top:15%" class="fa fa-sort-numeric-asc"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Account No" formControlName="bankAccountNo"/>
+                     </div>
+                 </div>
+            </div>
+        </div>
+   
+    </div>
+   
+   
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Account Type :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                            <i style="margin-top:15%" class="fa fa-address-card-o"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <p-dropdown [options]="accountList"  formControlName="bankAccountType" [autoWidth]="false" ></p-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Branch Name :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                             <i style="margin-top:15%" class="fa fa-university"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Branch Name" formControlName="bankBranchName" />
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+   
+   
+   <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Branch Address :
+            </div>
+            <div class="ui-grid-col-8">
+                 <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                            <i style="margin-top:15%" class="fa fa-address-book"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"   style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter Branch Addresss" formControlName="bankBranchAddress" />
+                    </div>
+                 </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+               IFSC Code :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                             <i style="margin-top:15%" class="fa fa-barcode"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter IFSC Code" formControlName="bankIfsCode" />
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+    </div>
+   
+    <div class="ui-grid-row">
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                MIRC Code :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                             <i style="margin-top:15%" class="fa fa-barcode"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                        <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px" placeholder="Enter MIRC Code" formControlName="bankMicrCode" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="ui-grid-col-6">
+            <div class="ui-grid-col-3">
+                Pan No :
+            </div>
+            <div class="ui-grid-col-8">
+                <div class="ui-grid-row">
+                        <div class="ui-grid-col-1" style="background-color:#F0F0F0;border:1px solid;border-color:rgba(111,111,111,0.2);text-align:center"> 
+                             <i style="margin-top:15%" class="fa fa-sort-numeric-asc"  aria-hidden="true"></i>
+                        </div>
+                    <div class="ui-grid-col-11">
+                         <input pInputText type="text"  style="border-left:0px;border-top-left-radius:0px;border-bottom-left-radius:0px"  placeholder="Enter Pan No" formControlName="panNumber" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </p-fieldset>
+    <br>
+    <div align="center">
+   <button pButton type="submit"  label="Save"></button>
+    </div>
+     
+</p-panel>
+   
+</form>
+

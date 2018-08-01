@@ -1,0 +1,14 @@
+<menu></menu>
+<p-panel header="Employee List">
+              <p-dataTable [value]="employeeList" [lazy]="true" [rows]="20" [paginator]="true" [totalRecords]="totalRecord" selectionMode="single" [(selection)]="selectedEmployee" 
+              (onRowSelect)="onRowSelect($even)" (onLazyLoad)="LazyLoadCandidate($event)" dataKey="id" >
+                 <p-column field="id" [filter]="true" [sortable]="true" header="Id"></p-column>
+                 <p-column field="employeeCode" [filter]="true" [sortable]="true" header="Employee Code"></p-column>
+                 <p-column field="firstName" [filter]="true" [sortable]="true" header="First Name"></p-column>
+                 <p-column field="lastName" [filter]="true" [sortable]="true" header="Last Name"></p-column>
+                 <p-column field="email" [filter]="true" [sortable]="true" header="Email"></p-column>
+                 <p-column field="mobileNo" [filter]="true" [sortable]="true" header="Mobile No"></p-column>
+                 <p-column field="designation" [filter]="true" [sortable]="true" header="Designation"></p-column>
+                 <p-column field="payrollGroupMst.groupName" [filter]="true" [sortable]="true" header="Group Name"></p-column>
+             </p-dataTable>
+             </p-panel>

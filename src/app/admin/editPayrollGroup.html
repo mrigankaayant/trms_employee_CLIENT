@@ -1,0 +1,213 @@
+    <menu></menu>
+        <div>
+          <p-messages [value]="msgs"></p-messages>
+       </div>
+        <p-panel header="Payroll Group Master">
+        <form [formGroup]="formPayrollGroup" (ngSubmit)="updatePayrollGroupMst()" >
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+            
+                    <input pInputText type="text" formControlName="id" hidden="true"/>
+                
+            <div class="ui-grid-row" >
+                <div class="ui-grid-col-4" style="text-align: right;">
+                    Group Name *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="groupName" [readonly]="payrollGroupReadOnlySelector"/>
+                </div>
+                
+            </div>
+            <div class="ui-grid-row" >
+                <div class="ui-grid-col-4" style="text-align: right;">
+                    Description *:
+                </div>
+                <div class="ui-grid-col-6">
+                   <textarea pInputTextarea type="text" rows="5" formControlName="description" [readonly]="payrollGroupReadOnlySelector" ></textarea>
+                </div>
+            </div>
+            
+        </div> 
+        <br>
+        <div align="center">
+          <button pButton type="button" (click)="editAllow()" icon="fa fa-pencil" label="Edit" [disabled]="payrollGroupEditButtonSelector" ></button>
+          <button pButton type="button" (click)="cancel()" icon="fa fa-times" label="Cancel" class="ui-button-danger" [disabled]="payrollGroupReadOnlySelector" ></button>  
+          <button pButton type="submit" icon="fa fa-floppy-o" label="Submit" class="ui-button-success" [disabled]="payrollGroupReadOnlySelector"></button> 
+        </div>
+        </form>
+        </p-panel> 
+
+        <br>
+
+        <p-panel>
+
+         <p-header >
+           <div class="ui-helper-clearfix">
+             <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Payroll Earning</span>
+             <div align="right">
+                    <button pButton type="button" (click)="addPayrollCompEarning()" icon="fa fa-plus" class="ui-button-success" ></button>
+                    <button pButton type="button" (click)="removePayrollCompEarning()" icon="fa fa-minus" ></button>
+             </div>
+           </div>
+         </p-header>
+
+       <p-dataTable [value]="payrollComEarningList" [(selection)]="selectedEarningComponent" dataKey="id" >
+
+         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+         <p-column field="payrollCompMst.name" [filter]="true" [sortable]="true" header="Name"></p-column>
+         <p-column field="payrollCompMst.name" [filter]="true" [sortable]="true" header="Description" ></p-column>
+         <p-column field="payrollCompMst.category" [filter]="true" [sortable]="true" header="Component Type" ></p-column>
+         <p-column field="compValue" header="Component Value" [filter]="true" [sortable]="true"></p-column>
+         <p-column field="remarks" header="Remarks" [filter]="true" [sortable]="true"></p-column>
+
+      </p-dataTable>
+
+   </p-panel>
+<br>
+
+   <p-panel>
+
+   <p-header >
+           <div class="ui-helper-clearfix">
+             <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Payroll Deduction</span>
+             <div align="right">
+                    <button pButton type="button" (click)="addPayrollCompDeduction()" icon="fa fa-plus" class="ui-button-success"></button>
+                     <button pButton type="button" (click)="removePayrollCompEarning()" icon="fa fa-minus"  ></button>
+             </div>
+           </div>
+         </p-header>
+
+        <p-dataTable [value]="payrollComDeductionList" [(selection)]="selectedDeductionComponent" dataKey="id" >
+
+         <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+         <p-column field="payrollCompMst.name" [filter]="true" [sortable]="true" header="Name"></p-column>
+         <p-column field="payrollCompMst.name" [filter]="true" [sortable]="true" header="Description" ></p-column>
+         <p-column field="payrollCompMst.category" [filter]="true" [sortable]="true" header="Component Type" ></p-column>
+         <p-column field="compValue" header="Component Value" [filter]="true" [sortable]="true"></p-column>
+         <p-column field="remarks" header="Remarks" [filter]="true" [sortable]="true"></p-column>
+
+      </p-dataTable> 
+   </p-panel>
+
+<br>
+
+   <p-panel>
+
+     <p-header >
+           <div class="ui-helper-clearfix">
+             <span class="ui-panel-title" style="font-size:16px;display:inline-block;margin-top:2px">Employee List</span>
+             <div align="right">
+                    <button pButton type="button" (click)="addEmployee()" icon="fa fa-plus" class="ui-button-success" ></button>
+                     <button pButton type="button" (click)="cancel()" icon="fa fa-minus" ></button>
+             </div>
+           </div>
+         </p-header>
+
+        <p-dataTable [value]="employeeList" [(selection)]="selectedEmployee" dataKey="id" dataKey="id" >
+
+          <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+          <p-column field="employeeCode" [filter]="true" [sortable]="true" header="Employee Code"></p-column>
+          <p-column field="firstName" [filter]="true" [sortable]="true" header="First Name"></p-column>
+          <p-column field="lastName" [filter]="true" [sortable]="true" header="Last Name"></p-column>
+          <p-column field="email" [filter]="true" [sortable]="true" header="Email"></p-column>
+          <p-column field="mobileNo" [filter]="true" [sortable]="true" header="Mobile No"></p-column>
+          <p-column field="designation" [filter]="true" [sortable]="true" header="Designation"></p-column>
+          <p-column field="payrollGroupMst.groupName" [filter]="true" [sortable]="true" header="Group Name"></p-column>
+      </p-dataTable> 
+
+   </p-panel>
+
+   <p-dialog header="Payroll Earning" [(visible)]="display" modal="modal" width="1200" responsive="true">
+    <form [formGroup]="formPayrollCompForm" (ngSubmit)="savePayrollEarning()" >
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+
+               <div class="ui-grid-row" formGroupName="payrollCompMst">
+              
+                <div class="ui-grid-col-4" style="text-align: right;">
+                    Select Earning Component*:
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="payrollComponentList" formControlName="id" [autoWidth]="false"></p-dropdown>
+                </div>
+              </div>
+
+            <div class="ui-grid-row" >
+                <div class="ui-grid-col-4" style="text-align: right;">
+                    Component Value *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="compValue"/>
+                </div>
+                
+            </div>
+            <div class="ui-grid-row" >
+                <div class="ui-grid-col-4" style="text-align: right;">
+                    Remarks *:
+                </div>
+                <div class="ui-grid-col-6">
+                   <textarea pInputTextarea type="text" rows="5" formControlName="remarks" ></textarea>
+                </div>
+            </div>
+            
+        </div> 
+        <br>
+        <div align="center">
+          <button pButton type="submit" label="Add" icon="fa fa-plus"  ></button>  
+        </div>
+        </form>
+</p-dialog>
+
+<p-dialog header="Payroll Deuction" [(visible)]="deduction" modal="modal" width="1200" responsive="true">
+    <form [formGroup]="formPayrollDeductionCompForm" (ngSubmit)="savePayrollDeduction()" >
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+
+               <div class="ui-grid-row" formGroupName="payrollCompMst">
+              
+                <div class="ui-grid-col-4" style="text-align: right;">
+                    Select Earning Component*:
+                </div>
+                <div class="ui-grid-col-6">
+                    <p-dropdown [options]="payrollComponentList" formControlName="id" [autoWidth]="false"></p-dropdown>
+                </div>
+              </div>
+
+            <div class="ui-grid-row" >
+                <div class="ui-grid-col-4" style="text-align: right;">
+                    Component Value *:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="compValue"/>
+                </div>
+                
+            </div>
+            <div class="ui-grid-row" >
+                <div class="ui-grid-col-4" style="text-align: right;">
+                    Remarks *:
+                </div>
+                <div class="ui-grid-col-6">
+                   <textarea pInputTextarea type="text" rows="5" formControlName="remarks" ></textarea>
+                </div>
+            </div>
+            
+        </div> 
+        <br>
+        <div align="center">
+          <button pButton type="submit" label="Add" icon="fa fa-plus"  ></button>  
+        </div>
+        </form>
+</p-dialog>
+
+<p-dialog header="Add Employee" [(visible)]="employeeDialog" modal="modal" width="1200" responsive="true">
+    <button pButton type="submit" (click)="saveEmployee()" label="Add" icon="fa fa-plus"  ></button>   
+<p-dataTable [value]="employeeListforLazy" [lazy]="true" [rows]="20" [paginator]="true" [totalRecords]="totalRecord"  [(selection)]="selectedEmployeeLazyList" 
+ (onLazyLoad)="LazyLoadCandidate($event)" dataKey="id" >
+                <p-column [style]="{'width':'38px'}" selectionMode="multiple"></p-column>
+                 <p-column field="id" [filter]="true" [sortable]="true" header="Id"></p-column>
+                 <p-column field="employeeCode" [filter]="true" [sortable]="true" header="Employee Code"></p-column>
+                 <p-column field="firstName" [filter]="true" [sortable]="true" header="First Name"></p-column>
+                 <p-column field="lastName" [filter]="true" [sortable]="true" header="Last Name"></p-column>
+                 <p-column field="email" [filter]="true" [sortable]="true" header="Email"></p-column>
+                 <p-column field="mobileNo" [filter]="true" [sortable]="true" header="Mobile No"></p-column>
+                 <p-column field="designation" [filter]="true" [sortable]="true" header="Designation"></p-column>
+                 <p-column field="payrollGroupMst.groupName" [filter]="true" [sortable]="true" header="Group Name"></p-column>
+             </p-dataTable>
+</p-dialog>
